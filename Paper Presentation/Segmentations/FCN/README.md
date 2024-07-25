@@ -6,7 +6,7 @@
 
 ## Implementation
  
-    >python main.py
+    python main.py
 
 ## Structure
 ![image](https://github.com/user-attachments/assets/08c1aedf-3d1d-4189-9208-3bfb5259cc07)
