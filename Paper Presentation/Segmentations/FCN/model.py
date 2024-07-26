@@ -67,7 +67,6 @@ class FCN(nn.Module):
         x = self.block5(x)
         x5 = x
         
-        # Upsampling
         score = self.bn1(self.relu(self.deconv1(x5)))     
         score = score + x4                                
         score = self.bn2(self.relu(self.deconv2(score)))  
