@@ -1,7 +1,7 @@
 # [CVLAB_HYU](https://sites.google.com/view/hyu-cv)
 Professor : Donghyeon Cho
 
-## Paper Presentation
+## Paper Review
 
 ### 1. R-CNN Series (R-CNN, SPPNet, Fast R-CNN, Faster R-CNN)
 - Paper : [Link](https://github.com/hjpark83/CVLab/tree/main/Paper%20Presentation/R-CNN%20Series/Paper)
