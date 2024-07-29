@@ -9,10 +9,44 @@
 
 ### Kaggle - [Flood Area Segmentation dataset](https://www.kaggle.com/datasets/faizalkarim/flood-area-segmentation/data)
 
-## Implementation
+## Implement
  
     > python main.py
       Enter the base directory for the dataset: <directory_path>
+
+If you want to implement various epochs, change ```num_epoch``` in ```train.py```
+```python
+    # Define loss function and optimizer
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=1e-4)
+
+    # Training loop
+    num_epochs = 100
+    train_losses = []
+```
+Or, if you want to change backbone model (VGGNet, FCN, UNet), choose model in ```train.py```
+```python
+import torch
+import torch.optim as optim
+import torch.nn as nn
+from torch.utils.data import DataLoader
+# from model import FCN
+from VGGNet import VGGNet, FCNs
+# from UNet import UNet
+...
+def train(dataloader):
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # 1. model = FCN
+    # model = FCN().to(device)
+    
+    # 2. model = VGGNet (Pretrained)
+    vgg16 = VGGNet(pretrained=True)
+    model = FCNs(vgg16, 2).to(device)
+    
+    # 3. model = UNet
+    # model = UNet().to(device)
+    ...
+```
 
 ## Result
 
