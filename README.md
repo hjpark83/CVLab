@@ -14,4 +14,4 @@ Professor : Donghyeon Cho
 
 ### 3. Segmentations (Mask R-CNN, FCN, Panoptic Segmentation)
 - Paper : [Link](https://github.com/hjpark83/CVLab/tree/main/Paper%20Presentation/Segmentations/Paper)
-- FCN (VGG16) - [Flood Area Segmentation](https://github.com/hjpark83/CVLab/tree/main/Paper%20Presentation/Segmentations/FCN)
+- FCN (VGG16) - [Flood Area Segmentation](https://github.com/hjpark83/CVLab/tree/main/Paper%20Review/Segmentations/Implementation)
