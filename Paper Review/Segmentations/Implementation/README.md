@@ -3,6 +3,7 @@
 ## Model
 ### 1. FCN 
 ### 2. VGG16 (Pre-trained)
+### 3. UNet
 
 ## Dataset
 
@@ -11,7 +12,7 @@
 ## Implementation
  
     > python main.py
-      Enter the base directory for the dataset (e.g., 'dataset/flood-area-segmentation'): <directory_path>
+      Enter the base directory for the dataset: <directory_path>
 
 ## Result
 
@@ -29,6 +30,13 @@
 |Ground Truth|![image](https://github.com/user-attachments/assets/b5148b04-51f6-430d-9d42-54312931c236)|![image](https://github.com/user-attachments/assets/b5148b04-51f6-430d-9d42-54312931c236)|
 |Prediction|![image](https://github.com/user-attachments/assets/62574978-17c6-444a-bbb2-94d35ebfd5a4)|![image](https://github.com/user-attachments/assets/e8e1a7aa-0fb8-4552-82c3-67b9e4d1c170)|
 
+### 3. UNet
+|Label|Epoch=25|Epoch=100|
+|:-:|:-:|:--:|
+|Image|![image](https://github.com/user-attachments/assets/7efe6ab3-9075-4e3c-ac3d-247c68fe7758)|![image](https://github.com/user-attachments/assets/7efe6ab3-9075-4e3c-ac3d-247c68fe7758)|
+|Ground Truth|![image](https://github.com/user-attachments/assets/b2543ece-2f9a-4d60-ac43-f330c682e170)|![image](https://github.com/user-attachments/assets/62b8eb6f-ee3d-4ad2-8ebd-4d44e9c1ed13)|
+|Prediction|![image](https://github.com/user-attachments/assets/551c3409-2150-4394-8ef3-be93d79ac073)|![image](https://github.com/user-attachments/assets/d9defb25-c84d-49e2-a339-25641e29cecf)|
+
 ## Training
 
 ### 1. FCN
@@ -40,3 +48,8 @@
 |Epoch=25|Epoch=100|
 |:--:|:--:|
 |![image](https://github.com/user-attachments/assets/2153e281-4cab-4ad4-8332-7f7f279d2ce7)|![image](https://github.com/user-attachments/assets/ddb46309-ee18-4853-acc3-d3511efc0714)|
+
+### 3. UNet
+|Epoch=25|Epoch=100|
+|:--:|:--:|
+|![image](https://github.com/user-attachments/assets/eae4531a-9a9c-4d04-9910-48ccbcc1abfc)|![image](https://github.com/user-attachments/assets/4fd66ca5-6dde-4ca1-8494-550852fd4715)|
