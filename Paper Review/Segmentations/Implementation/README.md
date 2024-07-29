@@ -12,7 +12,7 @@
 ## Implementation
  
     > python main.py
-      Enter the base directory for the dataset (e.g., 'dataset/flood-area-segmentation'): <directory_path>
+      Enter the base directory for the dataset: <directory_path>
 
 ## Result
 
