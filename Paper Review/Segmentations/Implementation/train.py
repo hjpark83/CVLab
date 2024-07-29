@@ -3,22 +3,28 @@ import torch.optim as optim
 import torch.nn as nn
 from torch.utils.data import DataLoader
 # from model import FCN
-from VGGNet import VGGNet, FCNs
+# from VGGNet import VGGNet, FCNs
+from UNet import UNet
 
 # Example function to train the model
 def train(dataloader):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # 1. model = FCN
     # model = FCN().to(device)
     
-    vgg16 = VGGNet(pretrained=True)
-    model = FCNs(vgg16, 2).to(device)
+    # 2. model = VGGNet (Pretrained)
+    # vgg16 = VGGNet(pretrained=True)
+    # model = FCNs(vgg16, 2).to(device)
+    
+    # 3. model = UNet
+    model = UNet().to(device)
     
     # Define loss function and optimizer
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=1e-4)
 
     # Training loop
-    num_epochs = 100
+    num_epochs = 25
     train_losses = []
 
     for epoch in range(num_epochs):
