@@ -58,11 +58,21 @@ def train(dataloader):
 |Prediction|![image](https://github.com/user-attachments/assets/5337a4ab-eac0-4e33-9d83-1979623e7683)|![image](https://github.com/user-attachments/assets/e739bc8d-ecd6-4add-b575-d13e56dfbed0)|
 
 ### 2. VGG16
+- Pre-trained (O)
+
 |Label|Epoch=25|Epoch=100|
 |:-:|:-:|:--:|
 |Image|![image](https://github.com/user-attachments/assets/158aba06-59c7-4590-8c74-ef722f7ce4d7)|![image](https://github.com/user-attachments/assets/158aba06-59c7-4590-8c74-ef722f7ce4d7)|
 |Ground Truth|![image](https://github.com/user-attachments/assets/b5148b04-51f6-430d-9d42-54312931c236)|![image](https://github.com/user-attachments/assets/b5148b04-51f6-430d-9d42-54312931c236)|
 |Prediction|![image](https://github.com/user-attachments/assets/62574978-17c6-444a-bbb2-94d35ebfd5a4)|![image](https://github.com/user-attachments/assets/e8e1a7aa-0fb8-4552-82c3-67b9e4d1c170)|
+
+- Pre-trained (X)
+
+|Label|Epoch=25|Epoch=100|
+|:-:|:-:|:--:|
+|Image|![image](https://github.com/user-attachments/assets/72b664b0-6716-45c3-829f-2053ce7ae711)|![image](https://github.com/user-attachments/assets/72b664b0-6716-45c3-829f-2053ce7ae711)|
+|Ground Truth|![image](https://github.com/user-attachments/assets/5715bd50-f256-4079-b71f-30b487bd1484)|![image](https://github.com/user-attachments/assets/5715bd50-f256-4079-b71f-30b487bd1484)|
+|Prediction|![image](https://github.com/user-attachments/assets/a4a44533-a4d0-41b0-b71f-32c888587c9f)|![image](https://github.com/user-attachments/assets/d1dbd16c-770b-4c35-a66e-33484b6b6675)|
 
 ### 3. UNet
 |Label|Epoch=25|Epoch=100|
@@ -79,9 +89,17 @@ def train(dataloader):
 |![image](https://github.com/user-attachments/assets/affae839-e382-486f-b09b-394458e8fb52)|![image](https://github.com/user-attachments/assets/461a2fa6-17a8-4e4e-99b9-abb0d1f905b6)|
 
 ### 2. VGG16
+- Pre-trained (O)
+  
 |Epoch=25|Epoch=100|
 |:--:|:--:|
 |![image](https://github.com/user-attachments/assets/2153e281-4cab-4ad4-8332-7f7f279d2ce7)|![image](https://github.com/user-attachments/assets/ddb46309-ee18-4853-acc3-d3511efc0714)|
+
+- Pre-trained (X)
+
+|Epoch=25|Epoch=100|
+|:--:|:--:|
+|![image](https://github.com/user-attachments/assets/11d2be8d-d81e-461f-9f44-ed762c18189a)|![image](https://github.com/user-attachments/assets/1fa75771-90ee-4978-8f48-4488ac1fdd2a)|
 
 ### 3. UNet
 |Epoch=25|Epoch=100|
