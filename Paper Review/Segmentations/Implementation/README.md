@@ -1,9 +1,9 @@
 # Flood Area Segmentation
 
 ## Model
-### 1. FCN 
-### 2. VGG16 (Pre-trained)
-### 3. UNet
+### 1. [FCN](https://github.com/hjpark83/CVLab/blob/main/Paper%20Review/Segmentations/Implementation/model.py) 
+### 2. [VGG16 (Pre-trained)](https://github.com/hjpark83/CVLab/blob/main/Paper%20Review/Segmentations/Implementation/VGGNet.py)
+### 3. [UNet](https://github.com/hjpark83/CVLab/blob/main/Paper%20Review/Segmentations/Implementation/UNet.py)
 
 ## Dataset
 
