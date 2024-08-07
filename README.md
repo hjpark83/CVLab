@@ -12,7 +12,7 @@ Professor : Donghyeon Cho
 - PPT : [Link](https://github.com/hjpark83/CVLab/tree/main/Paper%20Presentation/Real-Time%20Object%20Detection/Presentation)
 - Implementation : [YOLO](https://github.com/hjpark83/CVLab/tree/main/Paper%20Review/Real-Time%20Object%20Detection/Implementation)
 
-### 3. Segmentations (FCN, Mask R-CNN, Panoptic Segmentation) + Deep Feature Flow for Object Detection
+### 3. Segmentations (FCN, Mask R-CNN, Panoptic Segmentation) \+ Video Object Detection(Deep Feature Flow for Object Detection)
 - Paper : [Link](https://github.com/hjpark83/CVLab/tree/main/Paper%20Review/Segmentations%20%2B%20Video%20object%20detection/Paper)
 - PPT : [Link](https://github.com/hjpark83/CVLab/blob/main/Paper%20Review/Segmentations%20%2B%20Video%20object%20detection/Presentation/Segmentations.pdf)
 - Implementation - [FCN(Flood Area Segmentation)](https://github.com/hjpark83/CVLab/tree/main/Paper%20Review/Segmentations%20%2B%20Video%20object%20detection/Implementation)
