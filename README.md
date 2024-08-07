@@ -3,7 +3,7 @@
 
 ## Paper Review
 
-### <span style="color:purple">1. R-CNN Series (R-CNN, SPPNet, Fast R-CNN, Faster R-CNN)</span>
+### 1. R-CNN Series (R-CNN, SPPNet, Fast R-CNN, Faster R-CNN)
 - Paper : [Link](https://github.com/hjpark83/CVLab/tree/main/Paper%20Presentation/R-CNN%20Series/Paper)
 - PPT : [Link](https://github.com/hjpark83/CVLab/tree/main/Paper%20Presentation/R-CNN%20Series/Presentation)
 
