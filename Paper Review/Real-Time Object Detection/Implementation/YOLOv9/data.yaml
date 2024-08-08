@@ -1,0 +1,25 @@
+names:
+- Back of shirt
+- Backstop
+- Ball
+- Basketball court
+- Front of shirt
+- Hoop
+- LED Board
+- Microphone
+- Press Conference Backdrop
+- Shoes
+- Shorts
+- Sleeve
+- Socks
+- headband
+nc: 14
+roboflow:
+  license: CC BY 4.0
+  project: basketball-pgk5r
+  url: https://universe.roboflow.com/rd-2ufrh/basketball-pgk5r/dataset/20
+  version: 20
+  workspace: rd-2ufrh
+test: /content/drive/MyDrive/Computer_Vision/YOLO/yolov9/Basketball/test/images
+train: /content/drive/MyDrive/Computer_Vision/YOLO/yolov9/Basketball/train/images
+val: /content/drive/MyDrive/Computer_Vision/YOLO/yolov9/Basketball/valid/images
