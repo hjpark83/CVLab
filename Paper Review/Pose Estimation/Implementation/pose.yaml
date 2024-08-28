@@ -13,8 +13,6 @@ BODY_PARTS:
   LHip: 11
   LKnee: 12
   LAnkle: 13
-  Chest: 14
-  Background: 15
 
 POSE_PAIRS:
   - ["Head", "Neck"]
@@ -24,11 +22,10 @@ POSE_PAIRS:
   - ["Neck", "LShoulder"]
   - ["LShoulder", "LElbow"]
   - ["LElbow", "LWrist"]
-  - ["Neck", "Chest"]
-  - ["Chest", "RHip"]
+  - ["Neck", "RHip"]
   - ["RHip", "RKnee"]
   - ["RKnee", "RAnkle"]
-  - ["Chest", "LHip"]
+  - ["Neck", "LHip"]
   - ["LHip", "LKnee"]
   - ["LKnee", "LAnkle"]
 
@@ -51,8 +48,8 @@ colors:
 protoFile: "models/pose/coco/pose_deploy_linevec.prototxt"
 weightsFile: "models/pose/coco/pose_iter_440000.caffemodel"
 
-image_path: "input/image"
-video_path: "input/video"
+image_path: "/mnt/storage1/Hyunjoon/openpose/input/image"
+video_path: "/mnt/storage1/Hyunjoon/openpose/input/video"
 
-output_image_path: "output/image"
-output_video_path: "output/video"
+output_image_path: "/mnt/storage1/Hyunjoon/openpose/output/image"
+output_video_path: "/mnt/storage1/Hyunjoon/openpose/output/video"
