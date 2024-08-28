@@ -8,11 +8,11 @@
 ## Implement
 Download pre-trained OpenPose model
 ```shell
-sh getModels.sh
+> sh getModels.sh
 ```
 Implement python file
 ```python
-python PoseEstimation.py --source [input image/video name] --output [output image/video name]
+> python PoseEstimation.py --source [input image/video name] --output [output image/video name]
 ```
 
 ## Output
@@ -22,11 +22,11 @@ python PoseEstimation.py --source [input image/video name] --output [output imag
 ### Video
 |Soccer|Pole Vault|
 |:--:|:--:|
-|![EURO2024](https://github.com/user-attachments/assets/ba405671-7761-49ea-8314-bd3b0b40e1c0)|![duplantis](https://github.com/user-attachments/assets/e1e3007a-1100-4e1a-a972-a7b84f2eef19)|
+|||
 |Baseball|Baseball|
-|![ohtani (1)](https://github.com/user-attachments/assets/f70da5f7-5171-4015-9e9f-122275003cee)|![kike - Made with Clipchamp](https://github.com/user-attachments/assets/66abf01d-3f1d-4663-be4f-65d34d876298)|
+|||
 |Basketball|Basketball|
-|![basket - Made with Clipchamp (1)](https://github.com/user-attachments/assets/5a7bc22b-b428-4ac9-ad59-d612608433e1)||
+|||
 
 ## reference
 [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose)
