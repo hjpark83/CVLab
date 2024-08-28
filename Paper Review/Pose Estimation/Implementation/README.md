@@ -17,7 +17,7 @@ python PoseEstimation.py --source [input image/video name] --output [output imag
 
 ## Output
 ### Image
-![image](https://github.com/user-attachments/assets/e07b6632-232b-4acd-bd15-fd2f4b9a7c87)
+![image](https://github.com/user-attachments/assets/33a3215a-72b1-465c-aff6-2789ead034e3)
 
 ### Video
 |Soccer|Pole Vault|
