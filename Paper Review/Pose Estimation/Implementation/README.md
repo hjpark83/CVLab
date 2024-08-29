@@ -1,5 +1,16 @@
 # Pose Estimation using OpenPose & YOLOv9
 
+This program is designed to analyze images, videos, or live camera feeds by applying object detection and human pose estimation. 
+
+It is particularly useful for applications that require detailed analysis of human movements or identification of objects within a scene.
+
+The program generates two distinct outputs:
+
+1. A visual representation of the original input with detection bounding boxes and overlaid pose estimations for humans, which is useful for visual inspection and analysis.
+2. A separate file containing only the pose skeletons, presented on a black background, which can be used for further processing or analysis of human movement.
+
+Pose estimation is applied exclusively to humans, while object detection works on any object with a confidence score above 0.5.
+
 ## Environment
 > Linux
 ## Model
