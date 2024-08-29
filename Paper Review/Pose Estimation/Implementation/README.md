@@ -18,10 +18,13 @@ Implement python file
 
 ## Output
 ### Image
-**Pose Estimated Image**
-![image](https://github.com/user-attachments/assets/31b1ef35-a0f8-448d-9271-ba326899ab96)
-**Pose Skeleton**
-![image](https://github.com/user-attachments/assets/94dcd010-17ad-453a-bb66-70cf398141d6)
+<img src="https://github.com/user-attachments/assets/2016fa5c-3dd9-4e1f-9b9d-ff0f696c7dc7" width="800" height="auto" />
+
+If you want to see image rather than gif, see here.
+
+>[pose_estimated_img.png](https://github.com/hjpark83/CVLab/blob/main/Paper%20Review/Pose%20Estimation/Implementation/result/pose_estimated_img.png)
+>
+>[pose_estimated_skeleton.png](https://github.com/hjpark83/CVLab/blob/main/Paper%20Review/Pose%20Estimation/Implementation/result/pose_estimated_skeleton.png)
 
 ### Video
 **Pose Estimated Video**
