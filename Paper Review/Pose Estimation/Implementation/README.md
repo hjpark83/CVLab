@@ -30,13 +30,20 @@ If you want to see image rather than gif, see here.
 **Pose Estimated Video**
 |Soccer|Pole Vault|
 |:--:|:--:|
-|![EU](https://github.com/user-attachments/assets/a0f8125e-701e-4053-a20c-b321ae1a2400)|![Duplantis](https://github.com/user-attachments/assets/4dc610bd-7571-4724-ab29-7f7fd86aadd1)|
+|![EU](https://github.com/user-attachments/assets/04bc651b-2d22-4d3e-805e-a44dcd4e9009)|![bar](https://github.com/user-attachments/assets/b34612f1-a06a-4ee9-a12a-3dab3a78b3ff)|
 |Baseketball|Baseball|
 |![paris](https://github.com/user-attachments/assets/96298cc3-b543-41b3-9fd6-8de5c50e290f)|![kike](https://github.com/user-attachments/assets/616ead8c-ef22-459a-9dd2-13df42f2461e)|
 |NewJeans - ETA|PSY - Gangnam Style|
 |![eta - Made with Clipchamp (1)](https://github.com/user-attachments/assets/000238c6-f48f-4562-baf6-e6516fa34d2a)|![psy](https://github.com/user-attachments/assets/2b4d3a9c-1beb-4b8c-bd61-00c11cfd6054)|
 
 **Pose Skeleton**
+|Soccer|Pole Vault|
+|:--:|:--:|
+|![EU_skel](https://github.com/user-attachments/assets/2c9ff82d-550b-407e-91e3-ad10b4e6ddad)|![skel](https://github.com/user-attachments/assets/0c019f32-2114-4ed3-aa8c-3670d1cfa850)|
+|Baseketball|Baseball|
+|||
+|NewJeans - ETA|PSY - Gangnam Style|
+|||
 
 ## reference
 [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose)
