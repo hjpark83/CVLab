@@ -13,8 +13,12 @@ def load_config(config_file='pose.yaml'):
         config['BODY_PARTS'],
         config['POSE_PAIRS'],
         config['colors'],
-        config['protoFile'],
-        config['weightsFile'],
+        config['pose_protoFile'],
+        config['pose_weightsFile'],
+        config['face_protoFile'],
+        config['face_weightsFile'],
+        config['hand_protoFile'],
+        config['hand_weightsFile'],
         config['image_path'],
         config['video_path'],
         config['output_image_path'],
@@ -22,29 +26,33 @@ def load_config(config_file='pose.yaml'):
     )
 
 
-def initialize_video_writer(cap, output_path, suffix='_pose'):
+def initialize_video_writer(cap, output_path):
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fps = int(cap.get(cv2.CAP_PROP_FPS))
-    frame_size = (width, height, 3)
     
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 
-    out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
-
     base_dir = os.path.dirname(os.path.dirname(output_path))
+    video_output_dir = os.path.join(base_dir, 'video')
+    os.makedirs(video_output_dir, exist_ok=True)
+
+    video_output_path = os.path.join(video_output_dir, os.path.basename(output_path))
+    out = cv2.VideoWriter(video_output_path, fourcc, fps, (width, height))
+
     pose_output_dir = os.path.join(base_dir, 'pose/video')
     os.makedirs(pose_output_dir, exist_ok=True)
 
-    output_pose_path = os.path.join(pose_output_dir, os.path.basename(output_path).replace('.mp4', f'{suffix}.mp4'))
-    out_pose = cv2.VideoWriter(output_pose_path, fourcc, fps, (width, height))
+    pose_output_path = os.path.join(pose_output_dir, os.path.basename(output_path))
+    out_pose = cv2.VideoWriter(pose_output_path, fourcc, fps, (width, height))
 
-    return out, out_pose, frame_size
+    return out, out_pose, (width, height)
+
 
 
 class YOLOModel:
     def __init__(self, model_path='yolov9s.pt'):
-        self.model = YOLO(model_path)
+        self.model = YOLO(model_path).to('cuda')
         self.colors = {}
 
 
@@ -91,12 +99,16 @@ class YOLOModel:
 
 
 class PoseEstimation:
-    def __init__(self, yolo_model, body_parts, pose_pairs, colors, proto_file, weights_file):
+    def __init__(self, yolo_model, body_parts, pose_pairs, colors, 
+                 pose_proto_file, pose_weights_file, face_proto_file, face_weights_file, hand_proto_file, hand_weights_file):
+        
         self.yolo_model = yolo_model
         self.body_parts = body_parts
         self.pose_pairs = pose_pairs
         self.colors = colors
-        self.net_pose = cv2.dnn.readNetFromCaffe(proto_file, weights_file)
+        self.net_pose = cv2.dnn.readNetFromCaffe(pose_proto_file, pose_weights_file)
+        self.net_face = cv2.dnn.readNetFromCaffe(face_proto_file, face_weights_file)
+        self.net_hand = cv2.dnn.readNetFromCaffe(hand_proto_file, hand_weights_file)
 
 
     def get_points(self, input, output, startX, startY, H, W, imageHeight, imageWidth):
@@ -136,12 +148,11 @@ class PoseEstimation:
         points = self.get_points(input, output, startX, startY, H, W, imageHeight, imageWidth)
         
         self.draw_pose(input, points, self.pose_pairs)
-
         blank_frame = np.zeros(frame_size, dtype=np.uint8)
         self.draw_pose(blank_frame, points, self.pose_pairs)
 
-        return blank_frame  
-    
+        return points, blank_frame 
+        
 
     def save_PE(self, frame, points, pose_pairs, frame_size):
         blank_frame = np.zeros(frame_size, dtype=np.uint8)  
@@ -154,7 +165,7 @@ class PoseEstimation:
                 
         for point in points:
             if point:
-                cv2.circle(blank_frame, point, 8, (0, 255, 255), thickness=-1, lineType=cv2.FILLED)  # Draw the keypoint as a circle
+                cv2.circle(blank_frame, point, 8, (0, 255, 255), thickness=-1, lineType=cv2.FILLED)
 
         return blank_frame
 
@@ -179,9 +190,9 @@ class PoseEstimation:
         blank_frame = np.zeros((height, width, 3), dtype=np.uint8)
 
         for (startX, startY, endX, endY) in boxes:
-            pose_image = self.process_pose(image, startX, startY, endX, endY, (height, width, 3))
+            _, pose_image = self.process_pose(image, startX, startY, endX, endY, (height, width, 3))
             blank_frame = cv2.add(blank_frame, pose_image)
-        
+            
         base_dir = os.path.dirname(os.path.dirname(output_path)) 
         pose_output_dir = os.path.join(base_dir, 'pose/image')
         os.makedirs(pose_output_dir, exist_ok=True) 
@@ -192,25 +203,14 @@ class PoseEstimation:
         cv2.imwrite(output_path, image)
         
         print(f"Finished processing image: {image_path}")
-        print(f"Output saved to: {output_path}")
-        print(f"Pose-only image saved to: {pose_image_path}")
 
 
     def process_video(self, video_path, output_path):
         cap = cv2.VideoCapture(video_path)
 
-        out, _, frame_size = initialize_video_writer(cap, output_path)
+        out, out_pose, frame_size = initialize_video_writer(cap, output_path)
         frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         print(f"Video: {video_path}, Total frames: {frame_count}, Resolution: {frame_size[0]}x{frame_size[1]}, FPS: {cap.get(cv2.CAP_PROP_FPS)}")
-
-        base_dir = os.path.dirname(os.path.dirname(output_path))
-        pose_output_dir = os.path.join(base_dir, 'pose/video')
-        os.makedirs(pose_output_dir, exist_ok=True)
-
-        pose_video_path = os.path.join(pose_output_dir, os.path.basename(output_path))
-
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        out_pose = cv2.VideoWriter(pose_video_path, fourcc, cap.get(cv2.CAP_PROP_FPS), (frame_size[0], frame_size[1]))
 
         while cap.isOpened():
             ret, frame = cap.read()
@@ -220,10 +220,10 @@ class PoseEstimation:
             boxes, labels, confidences = self.yolo_model.detect_objects(frame)
             frame = self.yolo_model.draw_boxes(frame, boxes, labels, confidences)
 
-            blank_frame = np.zeros(frame_size, dtype=np.uint8)
+            blank_frame = np.zeros((frame_size[1], frame_size[0], 3), dtype=np.uint8)
 
             for (startX, startY, endX, endY) in boxes:
-                pose_frame = self.process_pose(frame, startX, startY, endX, endY, frame_size)
+                _, pose_frame = self.process_pose(frame, startX, startY, endX, endY, (frame_size[1], frame_size[0], 3))
                 blank_frame = cv2.add(blank_frame, pose_frame)
 
             out.write(frame)
@@ -234,9 +234,6 @@ class PoseEstimation:
         out_pose.release()
         
         print(f"Finished processing video: {video_path}")
-        print(f"Output saved to: {output_path}")
-        print(f"Pose-only video saved to: {pose_video_path}")
-
 
 
     def process_camera(self, output_path):
@@ -266,8 +263,10 @@ class PoseEstimation:
             blank_frame = np.zeros(frame_size, dtype=np.uint8)
 
             for (startX, startY, endX, endY) in boxes:
-                pose_frame = self.process_pose(frame, startX, startY, endX, endY, frame_size)
+                _, pose_frame = self.process_pose(frame, startX, startY, endX, endY, frame_size)  # Unpack the tuple
                 blank_frame = cv2.add(blank_frame, pose_frame)
+
+            self.process_face_with_haar(frame)
 
             out.write(frame)
             out_pose.write(blank_frame)
@@ -282,8 +281,20 @@ class PoseEstimation:
         cv2.destroyAllWindows()
         
         print(f"Finished processing camera stream")
-        print(f"Output saved to: {output_path}")
-        print(f"Pose-only video saved to: {pose_video_path}")
+
+
+    def detect_faces_haar(self, image):
+        face_cascade = cv2.CascadeClassifier('models/face/haarcascade_frontalface_alt.xml')
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+        return faces
+
+
+    def process_face_with_haar(self, image):
+        faces = self.detect_faces_haar(image)
+        for (x, y, w, h) in faces:
+            roi = image[y:y+h, x:x+w]
+            face_keypoints, _ = self.process_pose(roi, x, y, x+w, y+h, image.shape)
 
 
 def parse_args():
@@ -302,6 +313,10 @@ def main():
         colors, 
         protoFile, 
         weightsFile, 
+        face_protoFile, 
+        face_weightsFile, 
+        hand_protoFile, 
+        hand_weightsFile, 
         image_path, 
         video_path, 
         output_image_path, 
@@ -311,13 +326,17 @@ def main():
     args = parse_args()
 
     yolo_model = YOLOModel(model_path='yolov9s.pt')
-    PE = PoseEstimation(yolo_model, BODY_PARTS, POSE_PAIRS, colors, protoFile, weightsFile)
+    PE = PoseEstimation(yolo_model, BODY_PARTS, POSE_PAIRS, colors, protoFile, weightsFile, face_protoFile, face_weightsFile, hand_protoFile, hand_weightsFile)
 
-    source_file_path = os.path.join(image_path if args.source.endswith((".png", ".jpg")) else video_path, args.source)
-    output_file_path = os.path.join(output_image_path if args.source.endswith((".png", ".jpg")) else output_video_path, args.output)
+    if args.source == "camera":
+        source_file_path = args.source
+        output_file_path = args.output
+    else:
+        source_file_path = os.path.join(image_path if args.source.endswith((".png", ".jpg")) else video_path, args.source)
+        output_file_path = os.path.join(output_image_path if args.source.endswith((".png", ".jpg")) else output_video_path, args.output)
+
 
     PE.process_media(source_file_path, output_file_path)
-
 
 if __name__ == "__main__":
     main()
