@@ -137,6 +137,9 @@ class PoseEstimation:
         roi = input[startY:endY, startX:endX]
         imageHeight, imageWidth, _ = roi.shape
 
+        if roi.dtype != np.uint8:
+            roi = roi.astype(np.uint8)
+
         inpBlob = cv2.dnn.blobFromImage(roi, 1.0 / 255, (imageWidth, imageHeight),
                                         (0, 0, 0), swapRB=False, crop=False)
         self.net_pose.setInput(inpBlob)
@@ -151,8 +154,8 @@ class PoseEstimation:
         blank_frame = np.zeros(frame_size, dtype=np.uint8)
         self.draw_pose(blank_frame, points, self.pose_pairs)
 
-        return points, blank_frame 
-        
+        return points, blank_frame
+
 
     def save_PE(self, frame, points, pose_pairs, frame_size):
         blank_frame = np.zeros(frame_size, dtype=np.uint8)  
@@ -237,20 +240,18 @@ class PoseEstimation:
 
 
     def process_camera(self, output_path):
-        cap = cv2.VideoCapture(0) 
+        cap = cv2.VideoCapture(0)
 
-        out, _, frame_size = initialize_video_writer(cap, output_path) 
-
-        base_dir = os.path.dirname(os.path.dirname(output_path))
-        pose_output_dir = os.path.join(base_dir, 'pose/video')
-        os.makedirs(pose_output_dir, exist_ok=True)  
+        out, out_pose, frame_size = initialize_video_writer(cap, output_path)
         
-        pose_video_path = os.path.join(pose_output_dir, os.path.basename(output_path))
-
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        out_pose = cv2.VideoWriter(pose_video_path, fourcc, cap.get(cv2.CAP_PROP_FPS), (frame_size[0], frame_size[1]))
+        out = cv2.VideoWriter(out, fourcc, cap.get(cv2.CAP_PROP_FPS), 
+                            (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))))
 
-        print(f"Camera opened: Resolution: {frame_size[0]}x{frame_size[1]}, FPS: {cap.get(cv2.CAP_PROP_FPS)}")
+        out_pose = cv2.VideoWriter(out_pose, fourcc, cap.get(cv2.CAP_PROP_FPS), 
+                                (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))))
+
+        print(f"Camera opened: Resolution: {int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))}x{int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))}, FPS: {cap.get(cv2.CAP_PROP_FPS)}")
 
         while cap.isOpened():
             ret, frame = cap.read()
@@ -260,10 +261,10 @@ class PoseEstimation:
             boxes, labels, confidences = self.yolo_model.detect_objects(frame)
             frame = self.yolo_model.draw_boxes(frame, boxes, labels, confidences)
 
-            blank_frame = np.zeros(frame_size, dtype=np.uint8)
+            blank_frame = np.zeros((int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)), int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), 3), dtype=np.uint8)
 
             for (startX, startY, endX, endY) in boxes:
-                _, pose_frame = self.process_pose(frame, startX, startY, endX, endY, frame_size)  # Unpack the tuple
+                _, pose_frame = self.process_pose(frame, startX, startY, endX, endY, (int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)), int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), 3))
                 blank_frame = cv2.add(blank_frame, pose_frame)
 
             self.process_face_with_haar(frame)
@@ -280,7 +281,7 @@ class PoseEstimation:
         out_pose.release()
         cv2.destroyAllWindows()
         
-        print(f"Finished processing camera stream")
+        print(f"Finished processing camera stream. Video saved to: {out} and Pose-only video saved to: {out_pose}")
 
 
     def detect_faces_haar(self, image):
@@ -294,7 +295,11 @@ class PoseEstimation:
         faces = self.detect_faces_haar(image)
         for (x, y, w, h) in faces:
             roi = image[y:y+h, x:x+w]
-            face_keypoints, _ = self.process_pose(roi, x, y, x+w, y+h, image.shape)
+            
+            if len(roi.shape) == 2 or roi.shape[2] == 1:
+                roi = cv2.cvtColor(roi, cv2.COLOR_GRAY2BGR)
+
+            face_keypoints, _ = self.process_pose(roi, 0, 0, w, h, roi.shape)
 
 
 def parse_args():
