@@ -1,4 +1,4 @@
-# Pose Estimation using OpenPose & YOLOv9
+# 📸 Pose Estimation using OpenPose & YOLOv9 🔎
 
 This program is designed to analyze images, videos, or live camera feeds by applying object detection and human pose estimation. 
 It is particularly useful for applications that require detailed analysis of human movements or identification of objects within a scene.
@@ -13,7 +13,15 @@ Pose estimation is applied exclusively to humans, while object detection works o
 ## Environment
 > - Linux
 ## Model
-> - pose_iter_440000.caffemodel
+> [Pose Estimation]
+> - **pose** 
+: pose_iter_440000.caffemodel
+> - **face** 
+: pose_iter_116000.caffemodel
+> - **hand** 
+: pose_iter_102000.caffemodel
+>
+>[Object Detection]
 > - YOLOv9s.pt
 
 ## Implement
