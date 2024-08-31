@@ -21,9 +21,9 @@ Download pre-trained OpenPose model
 ```shell
 > sh getModels.sh
 ```
-Implement python file
+Implement
 ```python
-> python PoseEstimation.py --source [input (image/video) name] --output [output (image/video) name]
+> python main.py --source [input (image/video) name or 'camera'] --output [output (image/video) name]
 ```
 
 ## Output
